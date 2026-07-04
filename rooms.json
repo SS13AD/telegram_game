@@ -5,67 +5,54 @@
     "type": "space_station_room",
     "objects": [],
     "directions": {
-      "right": 1
+      "back": 1
     }
   },
   {
     "id": 1,
     "name": "Комната 1",
-    "type": "open_space_room",
-    "objects": [
-      "monster_small",
-      "chest"
-    ],
+    "type": "space_station_room",
+    "objects": [],
     "directions": {
-      "left": 0,
-      "right": 2
+      "up": 0,
+      "left": 2
     }
   },
   {
     "id": 2,
     "name": "Комната 2",
     "type": "space_station_room",
-    "objects": [
-      "monster_medium"
-    ],
+    "objects": [],
     "directions": {
-      "left": 1,
-      "back": 3
+      "right": 1,
+      "up": 3
     }
   },
   {
     "id": 3,
     "name": "Комната 3",
-    "type": "space_station_room",
-    "objects": [
-      "chest"
-    ],
+    "type": "open_space_room",
+    "objects": [],
     "directions": {
-      "up": 2,
-      "right": 4
+      "back": 2,
+      "left": 4
     }
   },
   {
     "id": 4,
     "name": "Комната 4",
-    "type": "open_space_room",
-    "objects": [
-      "monster_medium"
-    ],
+    "type": "space_station_room",
+    "objects": [],
     "directions": {
-      "left": 3,
+      "right": 3,
       "up": 5
     }
   },
   {
     "id": 5,
     "name": "Комната 5",
-    "type": "open_space_room",
-    "objects": [
-      "monster_medium",
-      "monster_small",
-      "chest"
-    ],
+    "type": "space_station_room",
+    "objects": [],
     "directions": {
       "back": 4,
       "right": 6
@@ -74,77 +61,70 @@
   {
     "id": 6,
     "name": "Комната 6",
-    "type": "space_station_room",
-    "objects": [
-      "monster_medium"
-    ],
+    "type": "open_space_room",
+    "objects": [],
     "directions": {
       "left": 5,
-      "up": 7
+      "right": 7
     }
   },
   {
     "id": 7,
     "name": "Комната 7",
     "type": "open_space_room",
-    "objects": [
-      "monster_small",
-      "monster_medium"
-    ],
+    "objects": [],
     "directions": {
-      "back": 6,
-      "left": 8
+      "left": 6,
+      "up": 8
     }
   },
   {
     "id": 8,
     "name": "Комната 8",
     "type": "open_space_room",
-    "objects": [
-      "chest",
-      "monster_small"
-    ],
+    "objects": [],
     "directions": {
-      "right": 7,
-      "back": 9
+      "back": 7,
+      "left": 9
     }
   },
   {
     "id": 9,
     "name": "Комната 9",
-    "type": "space_station_room",
+    "type": "open_space_room",
     "objects": [
+      "monster_medium",
       "chest"
     ],
     "directions": {
-      "up": 8,
+      "right": 8,
       "back": 10
     }
   },
   {
     "id": 10,
     "name": "Комната 10",
-    "type": "open_space_room",
-    "objects": [
-      "monster_small",
-      "monster_medium",
-      "chest"
-    ],
-    "directions": {
-      "up": 9,
-      "right": 11
-    }
-  },
-  {
-    "id": 11,
-    "name": "Комната 11",
     "type": "space_station_room",
     "objects": [
       "monster_medium"
     ],
     "directions": {
-      "left": 10,
-      "up": 12
+      "up": 9,
+      "back": 11
+    }
+  },
+  {
+    "id": 11,
+    "name": "Комната 11",
+    "type": "open_space_room",
+    "objects": [
+      "monster_medium",
+      "monster_small",
+      "chest"
+    ],
+    "directions": {
+      "up": 10,
+      "back": 12
     }
   },
   {
@@ -153,25 +133,44 @@
     "type": "space_station_room",
     "objects": [
       "monster_medium",
-      "monster_small",
-      "chest"
+      "chest",
+      "monster_small"
     ],
     "directions": {
-      "back": 11,
-      "right": 13
+      "up": 11,
+      "left": 13
     }
   },
   {
     "id": 13,
     "name": "Комната 13",
+    "type": "open_space_room",
+    "objects": [],
+    "directions": {
+      "right": 12,
+      "back": 14
+    }
+  },
+  {
+    "id": 14,
+    "name": "Комната 14",
     "type": "space_station_room",
+    "objects": [],
+    "directions": {
+      "up": 13,
+      "left": 15
+    }
+  },
+  {
+    "id": 15,
+    "name": "Комната 15",
+    "type": "open_space_room",
     "objects": [
-      "monster_medium",
       "monster_small",
       "chest"
     ],
     "directions": {
-      "left": 12
+      "right": 14
     }
   }
 ]

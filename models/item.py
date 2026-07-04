@@ -6,3 +6,6 @@ class Item:
         self.weight = weight
         self.image = pygame.image.load('test.jpg')
         self.image = pygame.transform.scale(self.image, (100, 100))
+
+    def __str__(self):
+        return self.name

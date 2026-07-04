@@ -14,8 +14,7 @@ all_buttons = {
 }
 keys = list(all_buttons.keys())
 
-keyboard = aiogram.types.InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=keys[0], callback_data=all_buttons[keys[0]])],
-                                                               [InlineKeyboardButton(text=keys[2], callback_data=all_buttons[keys[2]]),
-                                                                InlineKeyboardButton(text=keys[3], callback_data=all_buttons[keys[3]])],
-                                                               [InlineKeyboardButton(text=keys[1], callback_data=all_buttons[keys[1]])],
-                                                               [InlineKeyboardButton(text=keys[4], callback_data=all_buttons[keys[4]])]], resize_keyboard=True)
+keyboard = [[InlineKeyboardButton(text=keys[0], callback_data=all_buttons[keys[0]])],
+           [InlineKeyboardButton(text=keys[2], callback_data=all_buttons[keys[2]]), InlineKeyboardButton(text=keys[3], callback_data=all_buttons[keys[3]])],
+           [InlineKeyboardButton(text=keys[1], callback_data=all_buttons[keys[1]])],
+           [InlineKeyboardButton(text=keys[4], callback_data=all_buttons[keys[4]])]]
