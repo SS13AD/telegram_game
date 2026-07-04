@@ -5,6 +5,17 @@ from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove, FSInputFile
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
-key = ['Прямо', 'Назад', 'Налево', 'Направо', 'Инвентарь']
+all_buttons = {
+    'Вверх ⬆️': 'up',
+    'Вниз ⬇️': 'backward',
+    '⬅️ Налево': 'left',
+    'Направо ➡️': 'right',
+    '🎒 Инвентарь': 'inventory'
+}
+keys = list(all_buttons.keys())
 
-keyboard = aiogram.types.InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=key[0], callback_data=key[0]), InlineKeyboardButton(text=key[1], callback_data=key[1]), InlineKeyboardButton(text=key[2], callback_data=key[2]), InlineKeyboardButton(text=key[3], callback_data=key[3])], [InlineKeyboardButton(text=key[4], callback_data=key[4])]], resize_keyboard=True)
+keyboard = aiogram.types.InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=keys[0], callback_data=all_buttons[keys[0]])],
+                                                               [InlineKeyboardButton(text=keys[2], callback_data=all_buttons[keys[2]]),
+                                                                InlineKeyboardButton(text=keys[3], callback_data=all_buttons[keys[3]])],
+                                                               [InlineKeyboardButton(text=keys[1], callback_data=all_buttons[keys[1]])],
+                                                               [InlineKeyboardButton(text=keys[4], callback_data=all_buttons[keys[4]])]], resize_keyboard=True)

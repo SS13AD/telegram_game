@@ -1,0 +1,177 @@
+[
+  {
+    "id": 0,
+    "name": "Стартовая комната",
+    "type": "space_station_room",
+    "objects": [],
+    "directions": {
+      "right": 1
+    }
+  },
+  {
+    "id": 1,
+    "name": "Комната 1",
+    "type": "open_space_room",
+    "objects": [
+      "monster_small",
+      "chest"
+    ],
+    "directions": {
+      "left": 0,
+      "right": 2
+    }
+  },
+  {
+    "id": 2,
+    "name": "Комната 2",
+    "type": "space_station_room",
+    "objects": [
+      "monster_medium"
+    ],
+    "directions": {
+      "left": 1,
+      "back": 3
+    }
+  },
+  {
+    "id": 3,
+    "name": "Комната 3",
+    "type": "space_station_room",
+    "objects": [
+      "chest"
+    ],
+    "directions": {
+      "up": 2,
+      "right": 4
+    }
+  },
+  {
+    "id": 4,
+    "name": "Комната 4",
+    "type": "open_space_room",
+    "objects": [
+      "monster_medium"
+    ],
+    "directions": {
+      "left": 3,
+      "up": 5
+    }
+  },
+  {
+    "id": 5,
+    "name": "Комната 5",
+    "type": "open_space_room",
+    "objects": [
+      "monster_medium",
+      "monster_small",
+      "chest"
+    ],
+    "directions": {
+      "back": 4,
+      "right": 6
+    }
+  },
+  {
+    "id": 6,
+    "name": "Комната 6",
+    "type": "space_station_room",
+    "objects": [
+      "monster_medium"
+    ],
+    "directions": {
+      "left": 5,
+      "up": 7
+    }
+  },
+  {
+    "id": 7,
+    "name": "Комната 7",
+    "type": "open_space_room",
+    "objects": [
+      "monster_small",
+      "monster_medium"
+    ],
+    "directions": {
+      "back": 6,
+      "left": 8
+    }
+  },
+  {
+    "id": 8,
+    "name": "Комната 8",
+    "type": "open_space_room",
+    "objects": [
+      "chest",
+      "monster_small"
+    ],
+    "directions": {
+      "right": 7,
+      "back": 9
+    }
+  },
+  {
+    "id": 9,
+    "name": "Комната 9",
+    "type": "space_station_room",
+    "objects": [
+      "chest"
+    ],
+    "directions": {
+      "up": 8,
+      "back": 10
+    }
+  },
+  {
+    "id": 10,
+    "name": "Комната 10",
+    "type": "open_space_room",
+    "objects": [
+      "monster_small",
+      "monster_medium",
+      "chest"
+    ],
+    "directions": {
+      "up": 9,
+      "right": 11
+    }
+  },
+  {
+    "id": 11,
+    "name": "Комната 11",
+    "type": "space_station_room",
+    "objects": [
+      "monster_medium"
+    ],
+    "directions": {
+      "left": 10,
+      "up": 12
+    }
+  },
+  {
+    "id": 12,
+    "name": "Комната 12",
+    "type": "space_station_room",
+    "objects": [
+      "monster_medium",
+      "monster_small",
+      "chest"
+    ],
+    "directions": {
+      "back": 11,
+      "right": 13
+    }
+  },
+  {
+    "id": 13,
+    "name": "Комната 13",
+    "type": "space_station_room",
+    "objects": [
+      "monster_medium",
+      "monster_small",
+      "chest"
+    ],
+    "directions": {
+      "left": 12
+    }
+  }
+]

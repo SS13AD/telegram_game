@@ -14,8 +14,9 @@ from config import *
 from models.map_generator import RoomManager
 from models.display_room import *
 from models.game import *
-roommanager = RoomManager()
-gamemanager = Game()
+from models.game_manager import GameManager
+
+game_manager = None
 
 dp = Dispatcher()
 bot = Bot(Token)
@@ -24,91 +25,121 @@ main_message = None
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-async def main():
-    print('Bot started')
-    await dp.start_polling(bot)
+async def update_game_display():
+    global main_message, screen, game_manager
+
+    game_manager.render_room(screen)
+
+    pygame.image.save(screen, 'game.png')
+
+    if main_message:
+        file = types.InputMediaPhoto(media=FSInputFile('game.png'))
+        await main_message.edit_media(media=file, reply_markup=keyboard)
 
 @dp.message(lambda message:message.text == '/start')
 async def start(message):
-    global main_message
-    global gamemanager
-    global roommanager
-    user_id = message.from_user.id
-    user_states[user_id] = {'current_room': user_id}
+    global main_message, game_manager
 
-    screen.fill(pygame.Color('Black'))
-    pygame.display.flip()
-    pygame.image.save(screen, 'start.png')
+    game_manager = GameManager()
 
-    roommanager = RoomManager()
-    gamemanager = Game()
+    game_manager.current_room_id = 0
 
-    rects = get_entities(0)
+    game_manager.render_room(screen)
+    pygame.image.save(screen, 'game.png')
 
-    for rect in rects:
-        pygame.draw.rect(screen, pygame.Color('White'), rect)
-    main_message = await message.answer_photo(photo=FSInputFile('start.png'), reply_markup=keyboard)
+    main_message = await message.answer_photo(photo=FSInputFile('game.png'), reply_markup=keyboard)
 
-@dp.callback_query(F.data=='Направо')
-async def sides(callback):
-    screen.fill(pygame.Color('White'))
-    pygame.display.flip()
-    pygame.image.save(screen, 'start.png')
-    file = types.InputMediaPhoto(media=FSInputFile('start.png'))
-    await main_message.edit_media(media=file, reply_markup=keyboard)
+@dp.callback_query(F.data == 'right')
+async def right(callback):
+     await handle_movement(callback, 'right')
 
-@dp.callback_query(F.data=='Налево')
-async def sides(callback):
-    screen.fill(pygame.Color('Red'))
-    pygame.display.flip()
-    pygame.image.save(screen, 'start.png')
-    file = types.InputMediaPhoto(media=FSInputFile('start.png'))
-    await main_message.edit_media(media=file, reply_markup=keyboard)
+@dp.callback_query(F.data == 'left')
+async def left(callback):
+    await handle_movement(callback, 'left')
 
-@dp.callback_query(F.data=='Прямо')
-async def sides(callback):
-    screen.fill(pygame.Color('Purple'))
-    pygame.display.flip()
-    pygame.image.save(screen, 'start.png')
-    file = types.InputMediaPhoto(media=FSInputFile('start.png'))
-    await main_message.edit_media(media=file, reply_markup=keyboard)
+@dp.callback_query(F.data == 'up')
+async def forward(callback):
+    await handle_movement(callback, 'up')
 
-@dp.callback_query(F.data=='Назад')
-async def sides(callback):
-    screen.fill(pygame.Color('Blue'))
-    pygame.display.flip()
-    pygame.image.save(screen, 'start.png')
-    file = types.InputMediaPhoto(media=FSInputFile('start.png'))
-    await main_message.edit_media(media=file, reply_markup=keyboard)
+@dp.callback_query(F.data == 'backward')
+async def back(callback):
+    await handle_movement(callback, 'back')
 
-@dp.callback_query(F.data=='Инвентарь')
+async def handle_movement(callback, direction):
+    global game_manager
+
+    if game_manager.move(direction):
+        await update_game_display()
+
+        room = game_manager.get_current_room()
+
+        caption = f'Вы в комнате {game_manager.current_room_id}'
+        caption += f'Тип: {game_manager.get_room_type()}'
+        caption += f'Объекты: {''.join(game_manager.get_room_objects())}'
+
+        await callback.answer(f'Перешли в комнату {game_manager.current_room_id}')
+    else:
+        await callback.answer('Там нет прохода')
+
+@dp.callback_query(F.data == 'back_to_game')
+async def back_to_game(callback):
+    await update_game_display()
+
+@dp.callback_query(F.data == 'inventory')
 async def show_inventory(callback):
+    global game_manager
+
     screen.fill(pygame.Color('Black'))
-    x = 10
-    y = 10
-    current_item = 0
-    row_count = WIDTH // 110
-    keys = [[]]
-    current_row = 0
-    for item in gamemanager.player.inventory.items:
+
+    start_x = 10 #Стартовая позиция x первого предмета
+    start_y = 10 #Стартовая позиция y первого предмета
+
+    x = start_x #Позиция конкретного предмета x
+    y = start_y #Позиция конкретного предмета y
+
+    margin = 10 #Отступ между предметами
+    item_size = 100 #Размер одного предмета (100x100)
+
+    row_count = WIDTH // item_size + margin #Вычисление кол-ва предметов в одном ряду
+
+    keys = [[]] #Все кнопки на клаве
+
+    current_item = 0 #Предмет, который перебираем сейчас
+    current_row = 0 #Ряд, в котором сейчас находимся
+    for item in game_manager.game.player.inventory.items:
         screen.blit(item.image, (x, y))
-        current_item += 1
+
         if current_item >= row_count:
-            x = 10
-            y += 100+10
+            x = start_x
+            y += item_size + margin
+
             current_item = 0
             current_row += 1
+
             keys.append([])
-            keys[current_row].append(InlineKeyboardButton(text=item.name, callback_data='123'))
+            keys[current_row].append(InlineKeyboardButton(text=item.name, callback_data=item.name))
         else:
-            x += 100 + 10
-            keys[current_row].append(InlineKeyboardButton(text=item.name, callback_data='123'))
+            x += item_size + margin
+
+            keys[current_row].append(InlineKeyboardButton(text=item.name, callback_data=item.name))
+
+        current_item += 1
+
     pygame.display.flip()
+
     pygame.image.save(screen, 'start.png')
     file = types.InputMediaPhoto(media=FSInputFile('start.png'))
-    keys.append([InlineKeyboardButton(text='Назад', callback_data='Выйти из инвенторя')])
+
+    keys.reverse()
+    keys.append([InlineKeyboardButton(text='Назад', callback_data='back_to_game')])
+
     keyboard_inventory = aiogram.types.InlineKeyboardMarkup(inline_keyboard=keys, resize_keyboard=True)
+
     await main_message.edit_media(media=file, reply_markup=keyboard_inventory)
+
+async def main():
+    print('Bot started')
+    await dp.start_polling(bot)
 
 if __name__ == '__main__':
     asyncio.run(main())
